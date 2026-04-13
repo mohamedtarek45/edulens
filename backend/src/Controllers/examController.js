@@ -97,17 +97,12 @@ export const getAllExams = async (req, res) => {
 export const getExamResult = async (req, res) => {
   try {
     const { examId } = req.params;
-    console.log(examId,"examId");
-
     const exam = await Exam.findById(examId);
     if (!exam) {
       console.log("exam not found");
       return res.status(404).json({ message: "Exam not found" });
     }
-    console.log("exam"); // ده بيظهر 
     const attempts = await StudentExam.find({ exam: examId }).populate("student"); // ده مش بيظهر
-    console.log(attempts , "attempts"); // ده مش بيظهر
-
     const workbook = new ExcelJS.Workbook();
     const sheet = workbook.addWorksheet("Results");
 

@@ -96,7 +96,6 @@ export const useStudentExams = () => {
     });
     const result = await res.json();
     if (!res.ok) throw new Error("Failed to fetch exams");
-    console.log(result, "result 111111111111111");
     return result;
   };
 

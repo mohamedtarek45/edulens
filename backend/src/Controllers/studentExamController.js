@@ -167,13 +167,9 @@ export const submitExam = async (req, res) => {
   try {
     const { attemptId } = req.params;
     const { answers } = req.body;
-    console.log(answers);
-    console.log(attemptId);
-
     const attempt = await StudentExam.findById(attemptId).populate("exam");
 
     if (!attempt) {
-      console.log("Attempt not found");
       return res.status(404).json({ message: "Attempt not found" });
     }
 
@@ -184,9 +180,7 @@ export const submitExam = async (req, res) => {
     let isExpired = false;
 
     const TIME_LIMIT = 2 * 60 * 60 * 1000;
-    console.log(session , "session");
     if (session) {
-      console.log("session found");
       sessionData = session;
       isExpired = Date.now() > sessionData.startTime + TIME_LIMIT;
     } else {

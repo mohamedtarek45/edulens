@@ -1,14 +1,13 @@
 import { useGetAllExams } from "../hooks/ExamsHook";
 import ExamExportCard from "../components/ExamExportCard";
+import PageLoader from "../components/PageLoader";
 
 const ExportPage = () => {
-  const { data, isLoading, isError, error } = useGetAllExams();
+  const { data, isPending, isError, error } = useGetAllExams();
 
-  if (isLoading) {
+  if (isPending) {
     return (
-      <div className="min-h-screen flex items-center justify-center text-gray-500">
-        Loading exams...
-      </div>
+      <PageLoader />
     );
   }
 

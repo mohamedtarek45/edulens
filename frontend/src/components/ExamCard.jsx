@@ -13,7 +13,7 @@ const ExamCard = ({ exam }) => {
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 shadow-sm border hover:shadow-md transition flex flex-col gap-3">
+    <div className="relative bg-white rounded-2xl  p-5 shadow-sm border hover:shadow-md transition flex flex-col gap-3">
       {/* Title */}
       <h2 className="text-lg font-semibold">{exam.title}</h2>
 
@@ -22,7 +22,7 @@ const ExamCard = ({ exam }) => {
 
       {user.role === "student" && (
         <>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2 ">
             {exam.status === "submitted" && (
               <span className="flex items-center gap-1 text-green-600 text-sm">
                 <CheckCircle className="w-4 h-4" />
@@ -56,7 +56,8 @@ const ExamCard = ({ exam }) => {
           {/* Button */}
           <button
             onClick={handleAction}
-            className={`mt-2 px-4 py-2 rounded-xl text-sm font-medium transition
+            className={`mt-auto cursor-pointer px-4 py-2 rounded-xl text-sm font-medium transition
+              
         ${
           exam.status === "submitted"
             ? "bg-green-100 text-green-700"
