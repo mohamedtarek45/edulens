@@ -22,16 +22,18 @@ backend/ → Node.js + Express API server
 
 ---
 
-## 🧑‍🏫 Demo Teacher Account
+## 🧑‍🏫 Demo Accounts
 
-For testing teacher features:
+For testing purposes:
 
+  Teacher Account 
+  Email: teacher@test.com  \
+  Password: 123456 \
+  Student Account (Optional for testing)
+  Email: student@test.com  
+  Password: 123456
 
-Email: teacher@test.com
-
-Password: 123456
-
-
+You can use the student account to test the full exam flow without creating a new account via signup.
 ---
 
 ## ⚙️ Tech Stack
