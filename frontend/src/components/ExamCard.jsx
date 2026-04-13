@@ -49,7 +49,9 @@ const ExamCard = ({ exam }) => {
           {exam.duration && (
             <div className="flex items-center gap-1 text-xs text-gray-400">
               <Clock className="w-3 h-3" />
-              {exam.duration}s
+              {exam.duration < 60
+                ? `${exam.duration}s`
+                : `${Math.floor(exam.duration / 60)}m ${exam.duration % 60}s`}
             </div>
           )}
 
