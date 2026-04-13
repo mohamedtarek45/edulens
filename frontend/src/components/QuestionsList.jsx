@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Modal from "./modal";
+import Modal from "./Modal";
 import QuestionForm from "./QuestionForm";
 import { useDeleteQuestion, useGetAllQuestions } from "../hooks/QuestionHook";
 import { useQueryClient } from "@tanstack/react-query";
