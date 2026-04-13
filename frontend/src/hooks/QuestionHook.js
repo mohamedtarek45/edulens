@@ -13,10 +13,12 @@ export const useAddQuestion = () => {
         body: JSON.stringify(data),
       },
     );
+    const result = await response.json();
     if (!response.ok) {
+      console.log(result , "result");
       throw new Error("Add question failed");
     }
-    return response.json();
+    return result
   };
   return useMutation({
     mutationFn: addQuestionRequest,

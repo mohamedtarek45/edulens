@@ -28,7 +28,7 @@ export const createQuestionValidator = [
       return true;
     }),
 
-  body("image").optional().isString().withMessage("Image must be a string URL"),
+  body("image").optional({ nullable: true }).isString().withMessage("Image must be a string URL"),
   handleValidationErrors,
 ];
 

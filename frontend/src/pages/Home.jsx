@@ -33,14 +33,14 @@ const Home = () => {
             <h1 className="text-2xl font-bold text-white">My Exams</h1>
             <p className="text-indigo-200 text-base">
               {user.role === "student" ? (
-                <p>
+                <span>
                   {data.length} exam{data.length !== 1 ? "s" : ""} assigned to
                   you
-                </p>
+                </span>
               ) : (
-                <p>
+                <span>
                   {data.length} exam{data.length !== 1 ? "s" : ""} created
-                </p>
+                </span>
               )}
             </p>
           </div>
