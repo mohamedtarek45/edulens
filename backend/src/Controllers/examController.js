@@ -1,7 +1,7 @@
 import Exam from "../models/Exam.js";
 import Question from "../models/Question.js";
 import ExcelJS from "exceljs";
-import StudentExam from "../models/StudentExam.js";
+import StudentExam from "../models/studentExam.js";
 
 
 const shuffle = (array) => {

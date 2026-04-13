@@ -1,6 +1,6 @@
 import Exam from "../models/Exam.js";
 import User from "../models/user.js";
-import StudentExam from "../models/StudentExam.js";
+import StudentExam from "../models/studentExam.js";
 import { redis } from "../../config/redis.js";
 
 export const getExamResult = async (req, res) => {

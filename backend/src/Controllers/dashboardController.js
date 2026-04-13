@@ -1,7 +1,7 @@
 import Exam from "../models/Exam.js";
 import Question from "../models/Question.js";
 import User from "../models/user.js";
-import StudentExam from "../models/StudentExam.js";
+import StudentExam from "../models/studentExam.js";
 
 export const getDashboardStats = async (req, res) => {
   try {
