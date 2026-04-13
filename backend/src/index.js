@@ -26,7 +26,10 @@ app.use(
 );
 app.use(cookieParser());
 app.use(express.json());
+app.get("/test ", (req, res) => {
 
+  res.send( process.env.FRONTEND_URL ,"frontend");
+});
 
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/my/user", UserRoute);
