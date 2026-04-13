@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 const fetchStats = async () => {
-  const res = await fetch(import.meta.env.VITE_BACKEND_URL+"api/dashboard/stats", {
+  const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/dashboard/stats", {
     credentials: "include",
   });
 

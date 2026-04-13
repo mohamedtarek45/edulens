@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 export const useExamResult = (examId) => {
   const fetchResult = async () => {
     const res = await fetch(
-      import.meta.env.VITE_BACKEND_URL+`api/student/result/${examId}`,
+      import.meta.env.VITE_BACKEND_URL+`/api/student/result/${examId}`,
       {
         credentials: "include",
       }
@@ -33,7 +33,7 @@ export const useSubmitExam = () => {
 
   const submitRequest = async ({ attemptId, answers }) => {
     const res = await fetch(
-      import.meta.env.VITE_BACKEND_URL+`api/student/${attemptId}/submit`,
+      import.meta.env.VITE_BACKEND_URL+`/api/student/${attemptId}/submit`,
       {
         method: "POST",
         credentials: "include",
@@ -67,7 +67,7 @@ export const useSubmitExam = () => {
 export const useStartExam = (examId) => {
   const fetchExam = async () => {
     const res = await fetch(
-      import.meta.env.VITE_BACKEND_URL+`api/student/${examId}/start`,
+      import.meta.env.VITE_BACKEND_URL+`/api/student/${examId}/start`,
       {
         credentials: "include",
       }
@@ -91,7 +91,7 @@ export const useStartExam = (examId) => {
 };
 export const useStudentExams = () => {
   const fetchExams = async () => {
-    const res = await fetch(import.meta.env.VITE_BACKEND_URL+"api/student/", {
+    const res = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/student/", {
       credentials: "include",
     });
     const result = await res.json();

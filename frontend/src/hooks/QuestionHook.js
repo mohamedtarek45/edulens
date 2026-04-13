@@ -3,7 +3,7 @@ import { useQuery, useMutation } from "@tanstack/react-query";
 export const useAddQuestion = () => {
   const addQuestionRequest = async (data) => {
     const response = await fetch(
-      import.meta.env.VITE_BACKEND_URL + "api/questions",
+      import.meta.env.VITE_BACKEND_URL + "/api/questions",
       {
         method: "POST",
         credentials: "include",
@@ -26,7 +26,7 @@ export const useAddQuestion = () => {
 export const useDeleteQuestion = () => {
   const deleteQuestionRequest = async (id) => {
     const response = await fetch(
-      import.meta.env.VITE_BACKEND_URL + `api/questions/${id}`,
+      import.meta.env.VITE_BACKEND_URL + `/api/questions/${id}`,
       {
         method: "DELETE",
         credentials: "include",
@@ -44,7 +44,7 @@ export const useDeleteQuestion = () => {
 
 export const useUpdateQuestion = ({ id }) => {
   const updateQuestionRequest = async (data) => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL+`api/questions/${id}`, {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/questions/${id}`, {
       method: "PUT",
       credentials: "include",
       headers: {
@@ -64,7 +64,7 @@ export const useUpdateQuestion = ({ id }) => {
 
 export const useGetAllQuestions = () => {
   const getQuestionsRequest = async () => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"api/questions", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/questions", {
       method: "GET",
       credentials: "include",
       headers: {

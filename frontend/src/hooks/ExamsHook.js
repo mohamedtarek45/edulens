@@ -9,7 +9,7 @@ export const useExportExam = () => {
   const exportRequest = async ({examId , examTitle}) => {
 
     const res = await fetch(
-      import.meta.env.VITE_BACKEND_URL+`api/exams/${examId}/export`,
+      import.meta.env.VITE_BACKEND_URL+`/api/exams/${examId}/export`,
       {
         credentials: "include",
       }
@@ -41,7 +41,7 @@ export const useCreateExam = () => {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const createExamRequest = async (data) => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"api/exams/create", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/exams/create", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -66,7 +66,7 @@ export const useCreateExam = () => {
 
 export const useGetAllExams = () => {
   const getAllExams = async () => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"api/exams", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/exams", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -88,7 +88,7 @@ export const useGetAllExams = () => {
 export const useDeleteExam = () => {
   const queryClient = useQueryClient();
   const deleteExamRequest = async (id) => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL+`api/exams/${id}`, {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/exams/${id}`, {
       method: "DELETE",
       credentials: "include",
     });
@@ -113,7 +113,7 @@ export const useGetExamById = (id) => {
   return useQuery({
     queryKey: ["exam", id],
     queryFn: async () => {
-      const res = await fetch(import.meta.env.VITE_BACKEND_URL+`api/exams/${id}`, {
+      const res = await fetch(import.meta.env.VITE_BACKEND_URL+`/api/exams/${id}`, {
         credentials: "include",
       });
 

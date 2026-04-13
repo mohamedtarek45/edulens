@@ -7,7 +7,7 @@ export const useLogout = () => {
   const navigate = useNavigate();
 
   const logoutRequest = async () => {
-    const res = await fetch(import.meta.env.VITE_BACKEND_URL + "api/my/user/logout", {
+    const res = await fetch(import.meta.env.VITE_BACKEND_URL + "/api/my/user/logout", {
       method: "POST",
       credentials: "include",
     });
@@ -32,7 +32,7 @@ export const useLogout = () => {
 
 export const useGetMe = () => {
   const getMeRequest = async () => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL +"api/my/user/me", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL +"/api/my/user/me", {
       method: "GET",
       credentials: "include",
       headers: {
@@ -56,7 +56,7 @@ export const useGetMe = () => {
 
 export const useLogin = () => {
   const loginRequest = async (data) => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"api/my/user/login", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/my/user/login", {
       method: "POST",
       credentials: "include",
       headers: {
@@ -75,7 +75,7 @@ export const useLogin = () => {
 };
 export const useRegister = () => {
   const registerRequest = async (data) => {
-    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"api/my/user/singup", {
+    const response = await fetch(import.meta.env.VITE_BACKEND_URL+"/api/my/user/singup", {
       method: "POST",
       credentials: "include",
       headers: {
