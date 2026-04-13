@@ -81,6 +81,15 @@ You can use the student account to test the full exam flow without creating a ne
 - Instant score feedback after submission
 
 ---
+## ⏱️ Exam Rules
+ - Each exam has a fixed duration of 2 hours.
+- The timer starts when the student begins the exam.
+- If the time limit is exceeded, the student can still access the exam and continue solving.
+- However, if the student submits the exam after the allowed time has ended, the score will automatically be 0.
+---
+
+
+
 
 ## 🔐 Authentication & Roles
 
