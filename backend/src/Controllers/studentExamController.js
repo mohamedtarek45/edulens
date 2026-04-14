@@ -21,20 +21,18 @@ export const getExamResult = async (req, res) => {
       });
     }
 
-    // ❌ لو لسه مش submitted
+
     if (attempt.status !== "submitted") {
       return res.status(400).json({
         message: "Exam not submitted yet",
       });
     }
 
-    const form = attempt.exam.forms.find(
-      (f) => f.formId === attempt.formId
-    );
+    const form = attempt.exam.forms.find((f) => f.formId === attempt.formId);
 
     const resultQuestions = form.questions.map((q) => {
       const userAnswerObj = attempt.answers.find(
-        (a) => a.questionId === q.questionId
+        (a) => a.questionId === q.questionId,
       );
 
       return {
@@ -58,7 +56,6 @@ export const getExamResult = async (req, res) => {
     return res.status(500).json(err.message);
   }
 };
-
 
 export const getStudentExams = async (req, res) => {
   try {
@@ -104,6 +101,16 @@ export const startExam = async (req, res) => {
     if (!exam) {
       return res.status(404).json({ message: "Exam not found" });
     }
+    let attempt = await StudentExam.findOne({
+      student: studentId,
+      exam: examId,
+    });
+
+    if (attempt && attempt.status === "submitted") {
+      return res.status(400).json({
+        message: "You already submitted this exam",
+      });
+    }
 
     const session = await redis.get(redisKey);
 
@@ -111,7 +118,6 @@ export const startExam = async (req, res) => {
     let startTime;
 
     if (session) {
-
       const data = session;
       form = exam.forms.find((f) => f.formId === data.formId);
       startTime = data.startTime;
@@ -122,25 +128,18 @@ export const startExam = async (req, res) => {
       const randomIndex = Math.floor(Math.random() * exam.forms.length);
       form = exam.forms[randomIndex];
       startTime = Date.now();
-
+      console.log(redisKey, " redisKey start");
       await redis.set(
         redisKey,
-        JSON.stringify({
+        {
           formId: form.formId,
           startTime,
-        }),
+        },
         { ex: 2 * 60 * 60 },
       );
     }
 
-
-    let attempt = await StudentExam.findOne({
-      student: studentId,
-      exam: examId,
-    });
-
     if (!attempt) {
-
       attempt = await StudentExam.create({
         student: studentId,
         exam: examId,
@@ -168,14 +167,19 @@ export const submitExam = async (req, res) => {
     const { attemptId } = req.params;
     const { answers } = req.body;
     const attempt = await StudentExam.findById(attemptId).populate("exam");
-
+    console.log(attempt);
     if (!attempt) {
       return res.status(404).json({ message: "Attempt not found" });
     }
-
+    if (attempt && attempt.status === "submitted") {
+      return res.status(400).json({
+        message: "You already submitted this exam",
+      });
+    }
     const redisKey = `${attempt.student}:${attempt.exam._id}`;
     const session = await redis.get(redisKey);
-
+    const ttl = await redis.ttl(redisKey);
+    console.log("ttl", ttl);
     let sessionData = null;
     let isExpired = false;
 
@@ -224,7 +228,7 @@ export const submitExam = async (req, res) => {
     attempt.endTime = new Date();
     attempt.duration = duration;
     attempt.status = "submitted";
-
+    console.log(redisKey, " redisKey end");
     await attempt.save();
     await redis.del(redisKey);
 
