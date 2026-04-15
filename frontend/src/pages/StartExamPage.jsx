@@ -87,7 +87,7 @@ const StartExamPage = () => {
         <button
           onClick={handleSubmit}
           disabled={isSubmitting}
-          className="flex items-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold text-base px-6 py-3.5 rounded-2xl shadow-xl transition-all"
+          className="flex cursor-pointer items-center gap-2 bg-indigo-600 hover:bg-indigo-500 disabled:opacity-50 text-white font-semibold text-base px-6 py-3.5 rounded-2xl shadow-xl transition-all"
         >
           {isSubmitting ? (
             <Loader2 className="w-5 h-5 animate-spin" />

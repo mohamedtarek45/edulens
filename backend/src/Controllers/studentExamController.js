@@ -21,7 +21,6 @@ export const getExamResult = async (req, res) => {
       });
     }
 
-
     if (attempt.status !== "submitted") {
       return res.status(400).json({
         message: "Exam not submitted yet",
@@ -124,6 +123,12 @@ export const startExam = async (req, res) => {
       if (!form || startTime === null) {
         return res.status(400).json({ message: "Form not found" });
       }
+    } else if (!session && attempt && attempt.status === "started") {
+      form = exam.forms.find((f) => f.formId === attempt.formId);
+      startTime = attempt.startTime;
+      if (!form || startTime === null) {
+        return res.status(400).json({ message: "Form not found" });
+      }
     } else {
       const randomIndex = Math.floor(Math.random() * exam.forms.length);
       form = exam.forms[randomIndex];
@@ -190,10 +195,8 @@ export const submitExam = async (req, res) => {
     } else {
       isExpired = true;
     }
-
-    const form = attempt.exam.forms.find(
-      (f) => f.formId === sessionData?.formId,
-    );
+    console.log("isExpired", attempt.formId);
+    const form = attempt.exam.forms.find((f) => f.formId === attempt.formId);
 
     if (!form) {
       return res.status(400).json({
