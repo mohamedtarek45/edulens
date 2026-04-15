@@ -2,13 +2,11 @@ import Exam from "../models/Exam.js";
 import Question from "../models/Question.js";
 import ExcelJS from "exceljs";
 import StudentExam from "../models/studentExam.js";
-
+import User from "../models/user.js";
 
 const shuffle = (array) => {
   return array.sort(() => Math.random() - 0.5);
 };
-
-
 
 export const createExam = async (req, res) => {
   try {
@@ -27,7 +25,7 @@ export const createExam = async (req, res) => {
 
       const formatted = shuffledQuestions.map((q) => {
         let options = shuffle([...q.options]);
-       
+
         return {
           questionId: q._id,
           question: q.question,
@@ -92,8 +90,6 @@ export const getAllExams = async (req, res) => {
   }
 };
 
-
-
 export const getExamResult = async (req, res) => {
   try {
     const { examId } = req.params;
@@ -102,7 +98,10 @@ export const getExamResult = async (req, res) => {
       console.log("exam not found");
       return res.status(404).json({ message: "Exam not found" });
     }
-    const attempts = await StudentExam.find({ exam: examId }).populate("student"); // ده مش بيظهر
+    const attempts = await StudentExam.find({ exam: examId }).populate(
+      "student",
+    );
+    const users = await User.find({ role: "student" });
     const workbook = new ExcelJS.Workbook();
     const sheet = workbook.addWorksheet("Results");
 
@@ -114,7 +113,6 @@ export const getExamResult = async (req, res) => {
       { header: "Status", key: "status", width: 15 },
     ];
 
-
     attempts.forEach((a) => {
       sheet.addRow({
         name: a.student.name,
@@ -124,15 +122,27 @@ export const getExamResult = async (req, res) => {
         status: a.status,
       });
     });
+    const attemptEmails = new Set(attempts.map((a) => a.student.email));
+    users.forEach((u) => {
+      if (!attemptEmails.has(u.email)) {
+        sheet.addRow({
+          name: u.name,
+          email: u.email,
+          score: 0,
+          duration: 0,
+          status: "not_started",
+        });
+      }
+    });
 
     res.setHeader(
       "Content-Type",
-      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+      "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
     );
 
     res.setHeader(
       "Content-Disposition",
-      `attachment; filename=exam-results.xlsx`
+      `attachment; filename=exam-results.xlsx`,
     );
 
     await workbook.xlsx.write(res);
